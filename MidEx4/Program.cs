@@ -9,9 +9,9 @@ namespace MidEx4
 {
     internal class Program
     {
+        static IDictionary<string, int> Contacts = new Dictionary<string, int>();
         static void Main(string[] args)
         {
-            IDictionary<string, int> Contacts = new Dictionary<string, int>();
             bool exit = false;
             while (!exit)
             {
@@ -21,7 +21,7 @@ namespace MidEx4
                 Console.WriteLine("4. Display All Contacts");
                 Console.WriteLine("5. Exit");
 
-                int choice = 0;
+                int choice = Convert.ToInt32(Console.ReadLine());
 
                 switch (choice)
                 {
@@ -40,7 +40,6 @@ namespace MidEx4
                     case 5:
                         exit = true;
                         return;
-
                 }
             }
         }
@@ -76,37 +75,17 @@ namespace MidEx4
         }
         static void SearchContact()
         {
-            Console.WriteLine("Would you like to search by name or phone number?");
-            string search = Console.ReadLine();
-
-            if (search == "name")
+            Console.WriteLine("Enter Name: ");
+            string name = Console.ReadLine();
+            if (Contacts.ContainsKey(name))
             {
-                Console.WriteLine("Enter Name: ");
-                string name = Console.ReadLine();
-                if (Contacts.ContainsKey(name))
-                {
-                    Console.WriteLine("Phone Number: " + Contacts[name]);
-                }
-                else
-                {
-                    Console.WriteLine("Contact does not exist");
-                }
+                Console.WriteLine("Phone Number: " + Contacts[name]);
             }
             else
             {
-                Console.WriteLine("Enter Phone Number: ");
-                string number = Console.ReadLine();
-                if (Contacts.ContainsKey(number))
-                {
-                    Console.WriteLine("Phone Number: " + Contacts[number]);
-                }
-                else
-                {
-                    Console.WriteLine("Contact does not exist");
-                }
+                Console.WriteLine("Contact does not exist");
             }
         }
-
         static void DisplayContacts()
         {
             foreach (var contact in Contacts)
